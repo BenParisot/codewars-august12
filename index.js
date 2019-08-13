@@ -1,49 +1,20 @@
 function multiply(a, b)
 {
-if (parseInt(a) == 0 || parseInt(b) == 0) {
-    return '0';
-}
-
-if(a.charAt(0) === '0') {
-    a = parseInt(a, 10).toString();
-}
-if(b.charAt(0) === '0') {
-    b = parseInt(b, 10).toString();
-};
-
-
-
-console.log('a', a);
-console.log('b', b);
-a = [...a].reverse();
-b = [...b].reverse();
-var result = [];
-
-
-for (var i = 0; a[i] >= 0; i++) {
-    for (var j = 0; b[j] >= 0; j++) {
-        if (!result[i + j]) {
-            result[i + j] = 0;
+    const product = Array(a.length+b.length).fill(0);
+    console.log('product', product);
+    for (let i = a.length; i--; null) {
+        console.log(i);
+        let carry = 0;
+        for (let j = b.length; j--; null) {
+            console.log(j);
+            product[1+i+j] += carry + a[i]*b[j];
+            carry = Math.floor(product[1+i+j] / 10);
+            product[1+i+j] = product[1+i+j] % 10;
         }
-
-        result[i + j] += a[i] * b[j];
+        product[i] += carry;
     }
+    return product.join("").replace(/^0*(\d)/, "$1");
 }
 
-for (var i = 0; result[i] >= 0; i++) {
-    if (result[i] >= 10) {
-        if (!result[i + 1]) {
-            result[i + 1] = 0;
-        }
-
-        result[i + 1] += parseInt(result[i] / 10);
-        result[i] %= 10;
-    }
-}
-    console.log(result);
-    console.log('result', result.reverse().join(''));
-    return result.reverse().join('');
-}
-
-const answer1 = multiply('0000001', '3');
+const answer1 = multiply('525', '321');
 console.log(answer1);
